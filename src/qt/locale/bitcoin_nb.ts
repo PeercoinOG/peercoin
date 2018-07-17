@@ -2727,7 +2727,7 @@ For eksempel: varselmelding=echo %%s | mail -s &quot;Peercoin varsel&quot; admin
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: This version is obsolete, upgrade required!</source>
+        <source></source>
         <translation>Advarsel: Denne versjonen er foreldet, oppgradering kreves!</translation>
     </message>
     <message>

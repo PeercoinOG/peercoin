@@ -2726,7 +2726,7 @@ exempli gratia: alertnotify=echo %%s | mail -s &quot;Peercoin Notificatio&quot; 
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: This version is obsolete, upgrade required!</source>
+        <source></source>
         <translation>Monitio: Haec versio obsoleta est, progressio postulata!</translation>
     </message>
     <message>
