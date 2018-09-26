@@ -12,3 +12,10 @@ This is how you can build in Terminal on Debian based Linux
 	cd peercoin
 	git checkout v0.6.4ppc
 	./contrib/vagrant/install.sh
+
+References
+---------------------
+* [Project Website](https://peercoin.net)
+* [Whitepaper](https://peercoin.net/whitepaper)
+* [Discuss on Reddit](https://www.reddit.com/r/PeercoinOG)
+* [Discuss on Forum](https://talk.peercoin.net)
