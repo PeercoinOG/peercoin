@@ -214,6 +214,9 @@ void BitcoinGUI::createActions()
 
     multisigAction = new QAction(QIcon(":/icons/multisig"), tr("&Multisig"), this);
     multisigAction->setStatusTip(tr("UI to create multisig addresses"));
+    multisigAction->setToolTip(multisigAction->statusTip());
+    multisigAction->setCheckable(true);
+    multisigAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
     tabGroup->addAction(multisigAction);
 
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -266,7 +269,7 @@ void BitcoinGUI::createActions()
     openRPCConsoleAction->setStatusTip(tr("Open debugging and diagnostic console"));
 
     openChatroomAction = new QAction(QIcon(":/icons/peercoin"), tr("&Chatroom"), this);
-    openChatroomAction->setStatusTip(tr("Open https://peercoin.chat in a web browser."));
+    openChatroomAction->setStatusTip(tr("Open the Peercoin Discord in a web browser."));
 
     openForumAction = new QAction(QIcon(":/icons/peercoin"), tr("&Forum"), this);
     openForumAction->setStatusTip(tr("Open https://talk.peercoin.net in a web browser."));
@@ -338,6 +341,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(mintingAction);
 #endif // DISABLE_MINING
     toolbar->addAction(addressBookAction);
+    toolbar->addAction(multisigAction);
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -548,7 +552,7 @@ void BitcoinGUI::gotoVerifyMessageTab(QString addr)
 }
 
 void BitcoinGUI::openChatroom() {
-    QDesktopServices::openUrl(QUrl("https://peercoin.chat"));
+    QDesktopServices::openUrl(QUrl("https://discord.gg/XPxfwtG"));
 }
 
 void BitcoinGUI::openForum() {
