@@ -10,7 +10,7 @@ This is how you can build in Terminal on Debian based Linux
 
 	git clone https://github.com/PeercoinOG/peercoin
 	cd peercoin
-	git checkout v0.7.1ppc
+	git checkout v0.7.2ppc
 	./contrib/vagrant/install.sh
 
 References
