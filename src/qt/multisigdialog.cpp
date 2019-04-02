@@ -334,13 +334,21 @@ void MultisigDialog::on_transaction_textChanged()
     index = -1;
     BOOST_FOREACH(const CTxOut& txout, tx.vout)
     {
-        CScript scriptPubKey = txout.scriptPubKey;
-        CTxDestination addr;
-        ExtractDestination(scriptPubKey, addr);
-        CBitcoinAddress address(addr);
         SendCoinsRecipient recipient;
-        recipient.address = QString(address.ToString().c_str());
-        recipient.amount = txout.nValue;
+        if(txout.nValue > 0)
+        {
+            CScript scriptPubKey = txout.scriptPubKey;
+            CTxDestination addr;
+            ExtractDestination(scriptPubKey, addr);
+            CBitcoinAddress address(addr);
+            recipient.address = QString(address.ToString().c_str());
+            recipient.amount = txout.nValue;
+        }
+        else
+        {
+            recipient.address = QString(txout.scriptPubKey.ToString().c_str());
+            recipient.amount = 0;
+        }
         addOutput();
         index++;
         SendCoinsEntry *entry = qobject_cast<SendCoinsEntry *>(ui->outputs->itemAt(index)->widget());
@@ -448,17 +456,15 @@ void MultisigDialog::on_signTransactionButton_clicked()
     {
         CTxIn& txin = mergedTx.vin[i];
         CCoins coins;
-        if (view.GetCoins(txin.prevout.hash, coins)) {
+        if (view.GetCoins(txin.prevout.hash, coins))
+        {
             const CScript& prevPubKey = coins.vout[txin.prevout.n].scriptPubKey;
 
             txin.scriptSig.clear();
             SignSignature(*wallet, prevPubKey, mergedTx, i, SIGHASH_ALL);
             txin.scriptSig = CombineSignatures(prevPubKey, mergedTx, i, txin.scriptSig, tx.vin[i].scriptSig);
             if(!VerifyScript(txin.scriptSig, prevPubKey, mergedTx, i, true, 0))
-            {
-              fComplete = false;
-            }
-
+                fComplete = false;
         }
         else
         {
@@ -469,7 +475,10 @@ void MultisigDialog::on_signTransactionButton_clicked()
 
     CDataStream ssTx(SER_NETWORK, PROTOCOL_VERSION);
     ssTx << mergedTx;
-    ui->signedTransaction->setText(HexStr(ssTx.begin(), ssTx.end()).c_str());
+    bool fSignedAnything = (ssTx.size() > txData.size()) ? true : false;
+
+    if(fSignedAnything)
+        ui->signedTransaction->setText(HexStr(ssTx.begin(), ssTx.end()).c_str());
 
     if(fComplete)
     {
@@ -478,7 +487,11 @@ void MultisigDialog::on_signTransactionButton_clicked()
     }
     else
     {
-        ui->statusLabel->setText(tr("The transaction is NOT completely signed."));
+        if(fSignedAnything)
+            ui->statusLabel->setText(tr("The transaction is NOT completely signed."));
+        else
+            ui->statusLabel->setText(tr("Could not sign. Have you added this multisig address to wallet?"));
+
         ui->sendTransactionButton->setEnabled(false);
     }
 }
