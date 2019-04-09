@@ -66,12 +66,13 @@ namespace Checkpoints
         (336000, uint256("0xf07adf61615c529f7c282b858d13d3e037b197324cb12e0669c461947494c4e3"))
         (372751, uint256("0x000000000000148db599b217c117b5104f5043c55f6ca2a8a065d9fab9f9bba1"))
         (382019, uint256("0x3ab75769d7957d9bf0857b5019d0a0e41044fa9ecf30b2f9c32aa457b0864ce5"))
+        (394259, uint256("0xa8ca5f2112bb419803c791b8b03ae419efd72e7a33846f6049d6b41f830fd3e4"))
         ;
     static const CCheckpointData dataTestnet = {
         &mapCheckpointsTestnet,
-        1547644079,
-        746761,
-        200
+        1554847082,
+        770985,
+        300
     };
 
     const CCheckpointData &Checkpoints() {
