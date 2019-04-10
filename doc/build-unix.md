@@ -13,7 +13,7 @@ To build in Terminal on Debian based Linux
 
 	git clone https://github.com/peercoin/peercoin
 	cd peercoin
-	git checkout v0.7.3ppc
+	git checkout v0.7.4ppc
 	./contrib/vagrant/install.sh
 
 
